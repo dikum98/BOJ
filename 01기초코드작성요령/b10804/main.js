@@ -1,9 +1,7 @@
 // 카드 역배치
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-let input = fs.readFileSync(filePath).toString().split("\n");
-
-input = input.map((v) => v.split(" ").map((v) => +v));
+let input = fs.readFileSync(filePath).toString().trim().split("\n");
 
 function solution(input) {
   let candidate = new Array(20).fill(0);
@@ -31,3 +29,20 @@ function solution(input) {
 }
 
 solution(input);
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+let arr = [];
+for (let i = 0; i < 20; i++) {
+  arr[i] = i + 1;
+}
+input.forEach((n) => {
+  let start = parseInt(n.split(" ")[0] - 1);
+  let end = parseInt(n.split(" ")[1]);
+  arr = [
+    ...arr.slice(0, start),
+    ...arr.slice(start, end).reverse(),
+    ...arr.slice(end),
+  ];
+});
+console.log(arr.join(" "));
